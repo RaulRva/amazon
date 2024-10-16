@@ -1,6 +1,13 @@
-import React from 'react';
-import logo from '../../public/logo.png'
+import React, { useState } from 'react';
+import logo from '../../public/logo.png';
+
 const Header = () => {
+  const [isOpen, setIsOpen] = useState(false); // Estado para controlar si el menú móvil está abierto
+
+  const toggleMenu = () => {
+    setIsOpen(!isOpen); // Cambia el estado del menú (abierto/cerrado)
+  };
+
   return (
     <header className="bg-white shadow-md py-4">
       <div className="container mx-auto px-4 flex justify-between items-center">
@@ -13,7 +20,7 @@ const Header = () => {
           />
         </div>
 
-        {/* Navigation */}
+        {/* Navigation for larger screens */}
         <nav className="hidden md:flex space-x-6">
           <a href="#" className="text-gray-800 hover:text-pink-500 transition duration-300">
             Inicio
@@ -42,9 +49,12 @@ const Header = () => {
           </a>
         </div>
 
+        {/* Botón de menú para móviles */}
         <div className="md:hidden flex items-center">
           <button
-            className="text-gray-800 hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500">
+            onClick={toggleMenu} // Cambia el estado del menú al hacer clic
+            className="text-gray-800 hover:text-pink-500 focus:outline-none focus:ring-2 focus:ring-pink-500"
+          >
             <svg
               className="w-6 h-6"
               fill="none"
@@ -62,6 +72,29 @@ const Header = () => {
           </button>
         </div>
       </div>
+
+      {/* Menú desplegable para móviles */}
+      {isOpen && (
+        <div className="md:hidden bg-white shadow-md py-4">
+          <nav className="flex flex-col items-center space-y-4">
+            <a href="#" className="text-gray-800 hover:text-pink-500 transition duration-300">
+              Inicio
+            </a>
+            <a href="#categories" className="text-gray-800 hover:text-pink-500 transition duration-300">
+              Categorías
+            </a>
+            <a href="#reviews" className="text-gray-800 hover:text-pink-500 transition duration-300">
+              Últimas Reseñas
+            </a>
+            <a href="#about" className="text-gray-800 hover:text-pink-500 transition duration-300">
+              Sobre Nosotros
+            </a>
+            <a href="#contact" className="text-gray-800 hover:text-pink-500 transition duration-300">
+              Contacto
+            </a>
+          </nav>
+        </div>
+      )}
     </header>
   );
 };
